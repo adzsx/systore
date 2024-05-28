@@ -1,14 +1,15 @@
 package main
-    
+
 import (
+	"log"
 	"os"
-  "log"
+
+	"github.com/adzsx/etwas/internal/store"
 	"github.com/adzsx/etwas/internal/utils"
-  "github.com/adzsx/etwas/internal/store"
 )
 
-var(
-  help string = `
+var (
+	help string = `
 etwas usage:
   etwas [mode] [flags]
 
@@ -19,7 +20,8 @@ Modes:
 
 Flags:
   global flags:
-    --debug     enable debug mode
+    -v      --verbose   enable verbose mode
+    --debug             enable debug mode
 
 
 
@@ -39,10 +41,11 @@ Flags:
 )
 
 func main() {
+	log.SetFlags(0)
 	args := os.Args
-  
-  input := utils.Format(args)
-  log.Println(input)
 
-  store.Setup("~/test-etas.txt")
+	input := utils.Format(args)
+	log.Println(input)
+	utils.Home()
+	store.Setup()
 }
