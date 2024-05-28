@@ -9,9 +9,8 @@ import(
 
 type Input struct{
   Mode string
-  Restart bool
-  TUI bool
   Custom map[string]string
+  Flags []string
 }
 
 func Format(args []string) Input {
@@ -22,18 +21,20 @@ func Format(args []string) Input {
   } 
 
   input := Input{}
+  input.Mode = args[1]
   input.Custom = make(map[string]string) 
 
   for index, element := range args{
     switch element[1:]{
-      case "r":
-        input.Restart = true
-      case "i":
-        input.TUI = true
       case "c":
         data := strings.Split(args[index+1], ":")
         input.Custom[data[0]] = data[1]
+    default:
+      if string(element[0]) == "-"{
+        input.Flags = append(input.Flags, element)
       }
+    }
   }
   return input
+
 }

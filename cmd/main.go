@@ -4,6 +4,7 @@ import (
 	"os"
   "log"
 	"github.com/adzsx/etwas/internal/utils"
+  "github.com/adzsx/etwas/internal/store"
 )
 
 var(
@@ -41,5 +42,7 @@ func main() {
 	args := os.Args
   
   input := utils.Format(args)
+  log.Println(input)
 
+  store.Setup("~/test-etas.txt")
 }
